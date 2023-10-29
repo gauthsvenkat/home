@@ -12,7 +12,6 @@
   # packages
   home.packages = with pkgs; [
     neofetch
-    firefox
     meslo-lgs-nf
     autojump
     pre-commit
