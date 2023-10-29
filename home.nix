@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  programs.home-manager.enable = true;
+  targets.genericLinux.enable = true;
+  fonts.fontconfig.enable = true;
+
   home.stateVersion = "23.05"; # Don't change this 
   home.username = "ando";
   home.homeDirectory = "/home/ando";
@@ -10,17 +14,15 @@
     firefox
     meslo-lgs-nf
   ];
-  
-  fonts.fontconfig.enable = true;
 
-  programs.home-manager.enable = true;
-
+  # git
   programs.git = {
     enable = true;
     userEmail = "gauthsvenkat@gmail.com";
     userName = "Gautham";
   };
 
+  # zsh
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -34,6 +36,7 @@
     '';
   };
 
+  # btop
   programs.btop = {
     enable = true;
     settings = {
@@ -43,7 +46,7 @@
     };
   };
 
-  # ------------------------------------
+  # neovim
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -85,6 +88,4 @@
       }
     '';
   };
-  # ------------------------------------
-  targets.genericLinux.enable = true;
 }
