@@ -1,18 +1,21 @@
 { config, pkgs, ... }:
 
 {
+  # Stuff that doesn't change often
   programs.home-manager.enable = true;
   targets.genericLinux.enable = true;
   fonts.fontconfig.enable = true;
-
-  home.stateVersion = "23.05"; # Don't change this 
+  home.stateVersion = "23.05"; # Don't change this
   home.username = "ando";
   home.homeDirectory = "/home/ando";
 
+  # packages
   home.packages = with pkgs; [
     neofetch
     firefox
     meslo-lgs-nf
+    autojump
+    pre-commit
   ];
 
   # git
@@ -28,7 +31,7 @@
     enableAutosuggestions = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "docker" "docker-compose" "sudo" "git" ];
+      plugins = [ "docker" "docker-compose" "sudo" "git" "autojump"];
     };
     initExtra = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
@@ -72,7 +75,6 @@
     ];
     extraLuaConfig = ''
       vim.o.termguicolors = true
-      vim.o.clipboard = 'unnamedplus'
 
       vim.wo.number = true
       vim.wo.relativenumber = true
