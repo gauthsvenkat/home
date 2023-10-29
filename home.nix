@@ -14,7 +14,12 @@
   fonts.fontconfig.enable = true;
 
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+
+  programs.git = {
+    enable = true;
+    userEmail = "gauthsvenkat@gmail.com";
+    userName = "Gautham";
+  };
 
   programs.zsh = {
     enable = true;
@@ -25,7 +30,7 @@
     };
     initExtra = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      test -f ~/.config/home-manager/p10k.zsh && source ~/.config/home-manager/p10k.zsh
+      test -f ~/.p10k.zsh && source ~/.p10k.zsh
     '';
   };
 
