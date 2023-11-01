@@ -15,6 +15,7 @@
     meslo-lgs-nf
     autojump
     pre-commit
+    tree
   ];
 
   # git
@@ -30,7 +31,7 @@
     enableAutosuggestions = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "docker" "docker-compose" "sudo" "git" "autojump"];
+      plugins = [ "docker" "docker-compose" "sudo" "git" "autojump" ];
     };
     initExtra = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
@@ -61,6 +62,7 @@
       gruvbox-material
       auto-pairs
       vim-airline
+      which-key-nvim
       nvim-treesitter
       nvim-treesitter-parsers.nix
       nvim-treesitter-parsers.python
@@ -73,19 +75,25 @@
       nvim-treesitter-parsers.make
     ];
     extraLuaConfig = ''
-      vim.o.termguicolors = true
+        vim.o.termguicolors = true
 
-      vim.wo.number = true
-      vim.wo.relativenumber = true
+        vim.wo.number = true
+        vim.wo.relativenumber = true
 
-      vim.g.gruvbox_material_background = 'hard'
-      vim.cmd('colorscheme gruvbox-material')
+        vim.g.gruvbox_material_background = 'hard'
+        vim.cmd('colorscheme gruvbox-material')
 
-      require('toggleterm').setup()
-      require('gitsigns').setup()
-      require('nvim-treesitter.configs').setup{
-        highlight = {enable = true},
-        indent = {enable = true},
+        vim.g.airline_powerline_fonts = 1
+
+        require('toggleterm').setup()
+        require('gitsigns').setup()
+        require('nvim-treesitter.configs').setup{
+          highlight = {enable = true},
+          indent = {enable = true},
+        }
+
+      require("which-key").setup{
+
       }
     '';
   };
