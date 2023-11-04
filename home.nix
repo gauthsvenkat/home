@@ -39,6 +39,13 @@
     '';
   };
 
+  # fzf
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   # btop
   programs.btop = {
     enable = true;
