@@ -12,11 +12,17 @@
   # packages
   home.packages = with pkgs; [
     neofetch
-    meslo-lgs-nf
-    autojump
     pre-commit
     tree
+    meslo-lgs-nf
   ];
+
+  # autojump
+  programs.autojump = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
 
   # git
   programs.git = {
