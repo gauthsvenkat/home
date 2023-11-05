@@ -11,6 +11,7 @@
 
   # packages
   home.packages = with pkgs; [
+    ranger
     neofetch
     pre-commit
     tree
