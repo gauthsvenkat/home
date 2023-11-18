@@ -87,6 +87,7 @@
       nvim-treesitter-parsers.csv
       nvim-treesitter-parsers.dockerfile
       nvim-treesitter-parsers.make
+      nvim-hlslens #
     ];
     extraLuaConfig = ''
         vim.o.termguicolors = true
@@ -101,14 +102,15 @@
 
         require('toggleterm').setup()
         require('gitsigns').setup()
+
         require('nvim-treesitter.configs').setup{
           highlight = {enable = true},
           indent = {enable = true},
         }
 
-      require("which-key").setup{
+      require("which-key").setup()
 
-      }
+      require("hlslens").setup()
     '';
   };
 }
