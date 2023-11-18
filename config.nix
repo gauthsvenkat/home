@@ -62,13 +62,9 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
-      toggleterm-nvim
-      gitsigns-nvim
-      vim-sleuth
       gruvbox-material
-      auto-pairs
-      vim-airline
       which-key-nvim
+      nvim-hlslens
       nvim-treesitter
       nvim-treesitter-parsers.nix
       nvim-treesitter-parsers.python
@@ -79,7 +75,6 @@
       nvim-treesitter-parsers.csv
       nvim-treesitter-parsers.dockerfile
       nvim-treesitter-parsers.make
-      nvim-hlslens
     ];
     extraLuaConfig = ''
         vim.o.termguicolors = true
@@ -89,11 +84,6 @@
 
         vim.g.gruvbox_material_background = 'hard'
         vim.cmd('colorscheme gruvbox-material')
-
-        vim.g.airline_powerline_fonts = 1
-
-        require('toggleterm').setup()
-        require('gitsigns').setup()
 
         require('nvim-treesitter.configs').setup{
           highlight = {enable = true},
