@@ -67,6 +67,7 @@
       nvim-hlslens
       nvim-treesitter
       nvim-treesitter-parsers.nix
+      nvim-treesitter-parsers.lua
       nvim-treesitter-parsers.python
       nvim-treesitter-parsers.json
       nvim-treesitter-parsers.toml
