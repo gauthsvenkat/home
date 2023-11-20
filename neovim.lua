@@ -1,22 +1,29 @@
+-- Set the leader key.
+-- Must happen before plugins are loaded
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- Options
-vim.o.number = true
-vim.o.relativenumber = true
+local o = vim.o
+
+o.number = true
+o.relativenumber = true
 
 -- search options
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
+o.hlsearch = true
+o.ignorecase = true
+o.smartcase = true
 
 -- wrapped line will continue with the same indent
-vim.o.breakindent = true
+o.breakindent = true
 
 -- extra column for signs
-vim.o.signcolumn = "yes"
+o.signcolumn = "yes"
 
-vim.o.termguicolors = true
+o.termguicolors = true
 
 -- theme options
-vim.o.gruvbox_material_background = "hard"
+o.gruvbox_material_background = "hard"
 vim.cmd("colorscheme gruvbox-material")
 
 -- Plugins
@@ -30,3 +37,11 @@ require("which-key").setup()
 require("hlslens").setup()
 
 -- Keymaps
+-- local variable to hold some redundant stuff
+local opts = {noremap = true; silent = true}
+local keymap = vim.api.nvim_set_keymap
+
+-- make sure space isn't assigned anything else
+keymap("", "<Space>", "<Nop>", opts)
+-- clear highlights on pressing escape twice
+keymap("n", "<Esc><Esc>", ":noh<CR>", {noremap=true})
