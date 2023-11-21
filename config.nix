@@ -8,7 +8,7 @@
   fonts.fontconfig.enable = true;
 
   # packages
-  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ];
+  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ripgrep ];
 
   # autojump
   programs.autojump = {
@@ -62,9 +62,20 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
+      vim-sleuth
+      nvim-autopairs
+      indent-blankline-nvim
       gruvbox-material
+      nvim-web-devicons
+      gitsigns-nvim
+      lualine-nvim
       which-key-nvim
       nvim-hlslens
+      toggleterm-nvim
+      nvim-tree-lua
+      plenary-nvim
+      telescope-fzf-native-nvim
+      telescope-nvim
       nvim-treesitter
       nvim-treesitter-parsers.nix
       nvim-treesitter-parsers.lua

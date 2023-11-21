@@ -27,14 +27,23 @@ o.gruvbox_material_background = "hard"
 vim.cmd("colorscheme gruvbox-material")
 
 -- Plugins
+require("plenary")
+require("nvim-autopairs").setup()
+require("ibl").setup()
+require("lualine").setup()
+require("hlslens").setup()
+require("nvim-tree").setup()
+require("gitsigns").setup()
+require("toggleterm").setup()
 require("nvim-treesitter.configs").setup({
 	highlight = { enable = true },
 	indent = { enable = true },
 })
 
-require("which-key").setup()
-
-require("hlslens").setup()
+-- whichkey will be setup here
+-- but keybindings will be in the bottom
+local wk = require("which-key")
+wk.setup()
 
 -- Keymaps
 -- local variable to hold some redundant stuff
@@ -53,3 +62,31 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 -- Navigate buffers
 keymap("n", "<C-e>", ":bnext<CR>", opts)
 keymap("n", "<C-q>", ":bprevious<CR>", opts)
+
+wk.register({
+	t = {
+		name = "Terminal",
+		t = { "<cmd>ToggleTerm direction=float<CR>", "Float" },
+		h = { "<cmd>ToggleTerm size=10 direction=horizontal<CR>", "Horizontal" },
+		v = { "<cmd>ToggleTerm size=80 direction=vertical<CR>", "Vertical" },
+	},
+	e = {
+		name = "Explorer",
+		e = { "<cmd>NvimTreeToggle<CR>", "Toggle Explorer" },
+		f = { "<cmd>NvimTreeFindFile<CR>", "Find the current file" },
+		c = { "<cmd>NvimTreeCollapse<CR>", "Collapse tree" },
+	},
+	f = {
+		name = "Telescope",
+		f = { "<cmd>Telescope find_files<CR>", "Find files" },
+		t = { "<cmd>Telescope live_grep<CR>", "Find file with matching text" },
+	},
+}, {
+	mode = "n", -- NORMAL mode
+	prefix = "<leader>",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = true, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = false, -- use `nowait` when creating keymaps
+	expr = false, -- use `expr` when creating keymaps
+})
