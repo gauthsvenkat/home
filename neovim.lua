@@ -2,6 +2,8 @@
 ---- set the leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+--- only activate quick-scope on the following presses
 vim.g.qs_highlight_on_keys = { "f", "F" }
 
 ---- disable netrw for NvimTree to work properly
@@ -30,6 +32,7 @@ o.breakindent = true
 ---- extra column for signs
 o.signcolumn = "yes"
 
+--- more color!!!
 o.termguicolors = true
 
 ---- theme options
@@ -37,13 +40,19 @@ o.gruvbox_material_background = "hard"
 vim.cmd("colorscheme gruvbox-material")
 
 -- Plugins
+-- helpful functions for other nvim plugins
 require("plenary")
+-- make working with brackets easier
 require("nvim-autopairs").setup()
+-- indentation guides
 require("ibl").setup()
+-- status indicator
 require("lualine").setup()
+-- buffer tab indicator
 require("bufferline").setup()
-require("hlslens").setup()
-require("nvim-tree").setup()
+-- helps searching
+require("hlslens").setup({calm_down = true})
+require("nvim-tree").setup({renderer = {highlight_git = true}})
 require("gitsigns").setup()
 require("toggleterm").setup()
 require("nvim-treesitter.configs").setup({
@@ -63,39 +72,52 @@ local keymap = vim.api.nvim_set_keymap
 
 ---- make sure space isn't assigned anything else
 keymap("", "<Space>", "<Nop>", opts)
----- clear highlights on pressing escape twice
-keymap("n", "<Esc><Esc>", ":noh<CR>", opts)
-keymap("t", "<Esc><Esc>", "<C-\\><C-n>", opts)
+
+---- clear highlights on pressing escape
+keymap("n", "<Esc>", ":noh<cr>", opts)
+---- exit from terminal mode on pressing escape
+keymap("t", "<Esc>", "<C-\\><C-n>", opts)
+
 ---- easier window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<C-q>", "<cmd>bprevious<cr>", opts)
+keymap("n", "<C-e>", "<cmd>bnext<cr>", opts)
 
 ---- mapping to quickly move lines
-keymap("n", "<A-j>", ":m .+1<CR>==", opts)
-keymap("n", "<A-down>", ":m .+1<CR>==", opts)
-keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("i", "<A-down>", "<Esc>:m .+1<CR>==gi", opts)
-keymap("x", "<A-j>", ":m '>+1<CR>gv=gv", opts)
-keymap("x", "<A-down>", ":m '>+1<CR>gv=gv", opts)
+keymap("n", "<A-j>", ":m .+1<cr>==", opts)
+keymap("n", "<A-down>", ":m .+1<cr>==", opts)
+keymap("i", "<A-j>", "<Esc>:m .+1<cr>==gi", opts)
+keymap("i", "<A-down>", "<Esc>:m .+1<cr>==gi", opts)
+keymap("x", "<A-j>", ":m '>+1<cr>gv=gv", opts)
+keymap("x", "<A-down>", ":m '>+1<cr>gv=gv", opts)
 
-keymap("n", "<A-k>", ":m .-2<CR>==", opts)
-keymap("n", "<A-up>", ":m .-2<CR>==", opts)
-keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
-keymap("i", "<A-up>", "<Esc>:m .-2<CR>==gi", opts)
-keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
-keymap("x", "<A-up>", ":m '<-2<CR>gv=gv", opts)
+keymap("n", "<A-k>", ":m .-2<cr>==", opts)
+keymap("n", "<A-up>", ":m .-2<cr>==", opts)
+keymap("i", "<A-k>", "<Esc>:m .-2<cr>==gi", opts)
+keymap("i", "<A-up>", "<Esc>:m .-2<cr>==gi", opts)
+keymap("x", "<A-k>", ":m '<-2<cr>gv=gv", opts)
+keymap("x", "<A-up>", ":m '<-2<cr>gv=gv", opts)
 
 wk.register({
-	["w"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Explorer" },
-	["t"] = { "<cmd>ToggleTerm size=10 direction=horizontal<CR>", "Terminal" },
-	["q"] = { "<cmd>bprevious<CR>", "Previous buffer" },
-	["e"] = { "<cmd>bnext<CR>", "Next buffer" },
+	e = {
+		name = "Explorer",
+		e = {"<cmd>NvimTreeToggle<cr>", "Toggle Explorer"},
+		f = {"<cmd>NvimTreeFindFile<cr>", "Find current file in Explorer"},
+		c = {"<cmd>NvimTreeCollapse<cr>", "Collapse tree"},
+		w = {"<cmd>NvimTreeFocus<cr>", "Focus on Explorer"},
+	},
+	t = {
+		name = "Terminal",
+		f = {"<cmd>ToggleTerm direction=float<cr>", "Floating terminal"},
+		t = {"<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Bottom terminal"},
+	},
 	f = {
 		name = "Telescope",
-		f = { "<cmd>Telescope find_files<CR>", "Find files" },
-		t = { "<cmd>Telescope live_grep<CR>", "Find file with matching text" },
+		f = { "<cmd>Telescope find_files<cr>", "Find files" },
+		t = { "<cmd>Telescope live_grep<cr>", "Find file with matching text" },
 	},
 }, {
 	mode = "n", -- NORMAL mode
