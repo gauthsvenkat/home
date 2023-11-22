@@ -63,11 +63,13 @@
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
       vim-sleuth
+      quick-scope
       nvim-autopairs
       indent-blankline-nvim
       gruvbox-material
       nvim-web-devicons
       gitsigns-nvim
+      bufferline-nvim
       lualine-nvim
       which-key-nvim
       nvim-hlslens

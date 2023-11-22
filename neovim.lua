@@ -1,28 +1,38 @@
--- Set the leader key.
--- Must happen before plugins are loaded
+-- Misc (stuff that needs to happen in the beginning)
+---- set the leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.g.qs_highlight_on_keys = { "f", "F" }
+
+---- disable netrw for NvimTree to work properly
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Options
 local o = vim.o
 
+---- numbering
 o.number = true
 o.relativenumber = true
 
--- search options
+---- window splitting
+o.splitbelow = true
+o.splitleft = true
+
+---- search options
 o.hlsearch = true
 o.ignorecase = true
 o.smartcase = true
 
--- wrapped line will continue with the same indent
+---- wrapped line will continue with the same indent
 o.breakindent = true
 
--- extra column for signs
+---- extra column for signs
 o.signcolumn = "yes"
 
 o.termguicolors = true
 
--- theme options
+---- theme options
 o.gruvbox_material_background = "hard"
 vim.cmd("colorscheme gruvbox-material")
 
@@ -31,6 +41,7 @@ require("plenary")
 require("nvim-autopairs").setup()
 require("ibl").setup()
 require("lualine").setup()
+require("bufferline").setup()
 require("hlslens").setup()
 require("nvim-tree").setup()
 require("gitsigns").setup()
@@ -40,42 +51,47 @@ require("nvim-treesitter.configs").setup({
 	indent = { enable = true },
 })
 
--- whichkey will be setup here
--- but keybindings will be in the bottom
+---- whichkey will be setup here
+---- but keybindings will be in the bottom
 local wk = require("which-key")
 wk.setup()
 
 -- Keymaps
--- local variable to hold some redundant stuff
+---- local variable to hold some redundant stuff
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
--- make sure space isn't assigned anything else
+---- make sure space isn't assigned anything else
 keymap("", "<Space>", "<Nop>", opts)
--- clear highlights on pressing escape twice
-keymap("n", "<Esc><Esc>", ":noh<CR>", { noremap = true })
--- Easier window navigation
+---- clear highlights on pressing escape twice
+keymap("n", "<Esc><Esc>", ":noh<CR>", opts)
+keymap("t", "<Esc><Esc>", "<C-\\><C-n>", opts)
+---- easier window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
--- Navigate buffers
-keymap("n", "<C-e>", ":bnext<CR>", opts)
-keymap("n", "<C-q>", ":bprevious<CR>", opts)
+
+---- mapping to quickly move lines
+keymap("n", "<A-j>", ":m .+1<CR>==", opts)
+keymap("n", "<A-down>", ":m .+1<CR>==", opts)
+keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+keymap("i", "<A-down>", "<Esc>:m .+1<CR>==gi", opts)
+keymap("x", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+keymap("x", "<A-down>", ":m '>+1<CR>gv=gv", opts)
+
+keymap("n", "<A-k>", ":m .-2<CR>==", opts)
+keymap("n", "<A-up>", ":m .-2<CR>==", opts)
+keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("i", "<A-up>", "<Esc>:m .-2<CR>==gi", opts)
+keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+keymap("x", "<A-up>", ":m '<-2<CR>gv=gv", opts)
 
 wk.register({
-	t = {
-		name = "Terminal",
-		t = { "<cmd>ToggleTerm direction=float<CR>", "Float" },
-		h = { "<cmd>ToggleTerm size=10 direction=horizontal<CR>", "Horizontal" },
-		v = { "<cmd>ToggleTerm size=80 direction=vertical<CR>", "Vertical" },
-	},
-	e = {
-		name = "Explorer",
-		e = { "<cmd>NvimTreeToggle<CR>", "Toggle Explorer" },
-		f = { "<cmd>NvimTreeFindFile<CR>", "Find the current file" },
-		c = { "<cmd>NvimTreeCollapse<CR>", "Collapse tree" },
-	},
+	["w"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Explorer" },
+	["t"] = { "<cmd>ToggleTerm size=10 direction=horizontal<CR>", "Terminal" },
+	["q"] = { "<cmd>bprevious<CR>", "Previous buffer" },
+	["e"] = { "<cmd>bnext<CR>", "Next buffer" },
 	f = {
 		name = "Telescope",
 		f = { "<cmd>Telescope find_files<CR>", "Find files" },
