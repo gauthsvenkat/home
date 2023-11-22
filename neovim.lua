@@ -58,15 +58,11 @@ require("nvim-tree").setup({renderer = {highlight_git = true}})
 require("gitsigns").setup()
 ---- terminal
 require("toggleterm").setup()
+---- code parser for the modern era
 require("nvim-treesitter.configs").setup({
 	highlight = { enable = true },
 	indent = { enable = true },
 })
-
----- whichkey will be setup here
----- but keybindings will be in the bottom
-local wk = require("which-key")
-wk.setup()
 
 -- Keymaps
 ---- local variable to hold some redundant stuff
@@ -89,6 +85,12 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-q>", "<cmd>bprevious<cr>", opts)
 keymap("n", "<C-e>", "<cmd>bnext<cr>", opts)
 
+---- resize pane with arrows
+keymap("n", "<C-Up>", ":resize +2<CR>", opts)
+keymap("n", "<C-Down>", ":resize -2<CR>", opts)
+keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+
 ---- mapping to quickly move lines
 keymap("n", "<A-j>", ":m .+1<cr>==", opts)
 keymap("n", "<A-down>", ":m .+1<cr>==", opts)
@@ -104,6 +106,8 @@ keymap("i", "<A-up>", "<Esc>:m .-2<cr>==gi", opts)
 keymap("x", "<A-k>", ":m '<-2<cr>gv=gv", opts)
 keymap("x", "<A-up>", ":m '<-2<cr>gv=gv", opts)
 
+local wk = require("which-key")
+wk.setup()
 wk.register({
 	e = {
 		name = "Explorer",
