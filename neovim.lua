@@ -40,20 +40,23 @@ o.gruvbox_material_background = "hard"
 vim.cmd("colorscheme gruvbox-material")
 
 -- Plugins
--- helpful functions for other nvim plugins
+---- helpful functions for other nvim plugins
 require("plenary")
--- make working with brackets easier
+---- make working with brackets easier
 require("nvim-autopairs").setup()
--- indentation guides
+---- indentation guides
 require("ibl").setup()
--- status indicator
+---- status indicator
 require("lualine").setup()
--- buffer tab indicator
+---- buffer tab indicator
 require("bufferline").setup()
--- helps searching
+---- helps searching
 require("hlslens").setup({calm_down = true})
+---- explorer
 require("nvim-tree").setup({renderer = {highlight_git = true}})
+---- monitor git changes
 require("gitsigns").setup()
+---- terminal
 require("toggleterm").setup()
 require("nvim-treesitter.configs").setup({
 	highlight = { enable = true },
@@ -109,15 +112,24 @@ wk.register({
 		c = {"<cmd>NvimTreeCollapse<cr>", "Collapse tree"},
 		w = {"<cmd>NvimTreeFocus<cr>", "Focus on Explorer"},
 	},
-	t = {
-		name = "Terminal",
-		f = {"<cmd>ToggleTerm direction=float<cr>", "Floating terminal"},
-		t = {"<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Bottom terminal"},
-	},
 	f = {
 		name = "Telescope",
 		f = { "<cmd>Telescope find_files<cr>", "Find files" },
 		t = { "<cmd>Telescope live_grep<cr>", "Find file with matching text" },
+	},
+	g = {
+		name = "Gitsigns",
+		s = { "<cmd>Gitsigns toggle_signs<cr>", "Toggle signs" },
+		n = { "<cmd>Gitsigns toggle_numhl<cr>", "Highlight line numbers" },
+		l = { "<cmd>Gitsigns toggle_linehl<cr>", "Highlight changed lines" },
+		w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Show word diffs" },
+		d = { "<cmd>Gitsigns toggle_deleted<cr>", "Show deleted lines" },
+		b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Show blame" },
+	},
+	t = {
+		name = "Terminal",
+		f = {"<cmd>ToggleTerm direction=float<cr>", "Floating terminal"},
+		t = {"<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Bottom terminal"},
 	},
 }, {
 	mode = "n", -- NORMAL mode
