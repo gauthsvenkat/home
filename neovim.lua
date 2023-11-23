@@ -45,19 +45,21 @@ require("plenary")
 ---- make working with brackets easier
 require("nvim-autopairs").setup()
 ---- indentation guides
-require("ibl").setup()
+require("ibl").setup({ enabled = false })
 ---- status indicator
 require("lualine").setup()
 ---- buffer tab indicator
 require("bufferline").setup()
 ---- helps searching
-require("hlslens").setup({calm_down = true})
+require("hlslens").setup({ calm_down = true })
 ---- explorer
-require("nvim-tree").setup({renderer = {highlight_git = true}})
+require("nvim-tree").setup({ renderer = { highlight_git = true } })
 ---- monitor git changes
 require("gitsigns").setup()
 ---- terminal
 require("toggleterm").setup()
+---- file finder
+require("telescope").setup()
 ---- code parser for the modern era
 require("nvim-treesitter.configs").setup({
 	highlight = { enable = true },
@@ -91,14 +93,13 @@ keymap("n", "<C-Down>", ":resize -2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
----- mapping to quickly move lines
+---- mapping to quickly move lines or visual blocks
 keymap("n", "<A-j>", ":m .+1<cr>==", opts)
 keymap("n", "<A-down>", ":m .+1<cr>==", opts)
 keymap("i", "<A-j>", "<Esc>:m .+1<cr>==gi", opts)
 keymap("i", "<A-down>", "<Esc>:m .+1<cr>==gi", opts)
 keymap("x", "<A-j>", ":m '>+1<cr>gv=gv", opts)
 keymap("x", "<A-down>", ":m '>+1<cr>gv=gv", opts)
-
 keymap("n", "<A-k>", ":m .-2<cr>==", opts)
 keymap("n", "<A-up>", ":m .-2<cr>==", opts)
 keymap("i", "<A-k>", "<Esc>:m .-2<cr>==gi", opts)
@@ -111,15 +112,19 @@ wk.setup()
 wk.register({
 	e = {
 		name = "Explorer",
-		e = {"<cmd>NvimTreeToggle<cr>", "Toggle Explorer"},
-		f = {"<cmd>NvimTreeFindFile<cr>", "Find current file in Explorer"},
-		c = {"<cmd>NvimTreeCollapse<cr>", "Collapse tree"},
-		w = {"<cmd>NvimTreeFocus<cr>", "Focus on Explorer"},
+		e = { "<cmd>NvimTreeToggle<cr>", "Toggle Explorer" },
+		f = { "<cmd>NvimTreeFindFile<cr>", "Find current file in Explorer" },
+		c = { "<cmd>NvimTreeCollapse<cr>", "Collapse tree" },
+		w = { "<cmd>NvimTreeFocus<cr>", "Focus on Explorer" },
 	},
 	f = {
 		name = "Telescope",
 		f = { "<cmd>Telescope find_files<cr>", "Find files" },
 		t = { "<cmd>Telescope live_grep<cr>", "Find file with matching text" },
+		b = { "<cmd>Telescope buffers<cr>", "Find buffer" },
+		c = { "<cmd>Telescope command_history<cr>", "Find command in history" },
+		k = { "<cmd>Telescope keymaps<cr>", "Find (normal mode) keymaps" },
+		v = { "<cmd>Telescope treesitter<cr>", "Find (treesitter) variables" },
 	},
 	g = {
 		name = "Gitsigns",
@@ -129,11 +134,21 @@ wk.register({
 		w = { "<cmd>Gitsigns toggle_word_diff<cr>", "Show word diffs" },
 		d = { "<cmd>Gitsigns toggle_deleted<cr>", "Show deleted lines" },
 		b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Show blame" },
+		q = { "<cmd>Gitsigns prev_hunk<cr>", "Jump to prev hunk" },
+		e = { "<cmd>Gitsigns next_hunk<cr>", "Jump to next hunk" },
+		r = { "<cmd>Gitsigns reset_hunk<cr>", "Reset hunk" },
+		c = { "<cmd>Telescope git_commits<cr>", "Show commits" },
+		o = { "<cmd>Telescope git_branches<cr>", "Show branches" },
 	},
 	t = {
 		name = "Terminal",
-		f = {"<cmd>ToggleTerm direction=float<cr>", "Floating terminal"},
-		t = {"<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Bottom terminal"},
+		t = { "<cmd>ToggleTerm direction=horizontal size=10<cr>", "Bottom terminal" },
+		f = { "<cmd>ToggleTerm direction=float<cr>", "Floating terminal" },
+	},
+	i = {
+		name = "Indent Guide",
+		i = { "<cmd>IBLToggle<cr>", "Toggle Indent Guide" },
+		s = { "<cmd>IBLToggleScope<cr>", "Toggle Scope Guide" },
 	},
 }, {
 	mode = "n", -- NORMAL mode
