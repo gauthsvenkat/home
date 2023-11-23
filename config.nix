@@ -78,6 +78,7 @@
       plenary-nvim
       telescope-fzf-native-nvim
       telescope-nvim
+      undotree
       nvim-treesitter
       nvim-treesitter-parsers.nix
       nvim-treesitter-parsers.lua

@@ -150,6 +150,7 @@ wk.register({
 		i = { "<cmd>IBLToggle<cr>", "Toggle Indent Guide" },
 		s = { "<cmd>IBLToggleScope<cr>", "Toggle Scope Guide" },
 	},
+	["u"] = { "<cmd>UndotreeToggle<cr>", "Toggle Undotree" },
 }, {
 	mode = "n", -- NORMAL mode
 	prefix = "<leader>",
