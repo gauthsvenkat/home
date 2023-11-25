@@ -61,36 +61,5 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      vim-sleuth
-      quick-scope
-      nvim-autopairs
-      indent-blankline-nvim
-      gruvbox-material
-      nvim-web-devicons
-      gitsigns-nvim
-      bufferline-nvim
-      lualine-nvim
-      which-key-nvim
-      nvim-hlslens
-      toggleterm-nvim
-      nvim-tree-lua
-      plenary-nvim
-      telescope-fzf-native-nvim
-      telescope-nvim
-      undotree
-      nvim-treesitter
-      nvim-treesitter-parsers.nix
-      nvim-treesitter-parsers.lua
-      nvim-treesitter-parsers.python
-      nvim-treesitter-parsers.json
-      nvim-treesitter-parsers.toml
-      nvim-treesitter-parsers.yaml
-      nvim-treesitter-parsers.bash
-      nvim-treesitter-parsers.csv
-      nvim-treesitter-parsers.dockerfile
-      nvim-treesitter-parsers.make
-    ];
-    extraLuaConfig = builtins.readFile ./neovim.lua;
   };
 }
