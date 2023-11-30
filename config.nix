@@ -8,7 +8,7 @@
   fonts.fontconfig.enable = true;
 
   # packages
-  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ripgrep fd xclip ];
+  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ripgrep ];
 
   # autojump
   programs.autojump = {
@@ -43,9 +43,6 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    defaultCommand = "fd";
-    changeDirWidgetCommand = "fd --type d";
-    fileWidgetCommand = "fd --type f";
   };
 
   # btop
