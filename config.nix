@@ -8,7 +8,7 @@
   fonts.fontconfig.enable = true;
 
   # packages
-  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ripgrep cmake nodejs rustup xclip tree-sitter ];
+  home.packages = with pkgs; [ neofetch pre-commit tree meslo-lgs-nf ripgrep cmake nodejs rustup xclip ];
 
   # autojump
   programs.autojump = {
