@@ -1,12 +1,12 @@
 { config, pkgs, ... }:
 
 let
-  systemType = builtins.currentSystem;
+  linux_flag = builtins.currentSystem == "x86_64-linux";
 in
 {
   imports = [ ./config.nix ];
 
-  targets.genericLinux.enable = systemType == "x86_64-linux";
-  home.username = systemType == "x86_64-linux" ? "ando" : "gauthsvenkat";
-  home.homeDirectory = systemType == "x86_64-linux" ? "/home/ando" : "/Users/gauthsvenkat";
+  targets.genericLinux.enable = linux_flag;
+  home.username = if linux_flag then "ando" else "gauthsvenkat";
+  home.homeDirectory = if linux_flag then "/home/ando" else "/Users/gauthsvenkat";
 }
