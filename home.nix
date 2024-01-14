@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 
+let
+  systemType = builtins.currentSystem;
+in
 {
   imports = [ ./config.nix ];
-  
-  # For generic linux machines
-  targets.genericLinux.enable = true;
-  home.username = "ando";
-  home.homeDirectory = "/home/ando";
+
+  targets.genericLinux.enable = systemType == "x86_64-linux";
+  home.username = systemType == "x86_64-linux" ? "ando" : "gauthsvenkat";
+  home.homeDirectory = systemType == "x86_64-linux" ? "/home/ando" : "/Users/gauthsvenkat";
 }
