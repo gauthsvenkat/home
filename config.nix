@@ -28,15 +28,18 @@
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
       plugins = [ "docker" "docker-compose" "sudo" "git" "autojump" ];
     };
+    shellAliases = {
+      v = "nvim";
+    };
     initExtra = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       test -f ~/.p10k.zsh && source ~/.p10k.zsh
-      test -f ~/.env && source ~/.env
-      alias v="nvim"
+      test -f .env && export $(grep -v '^#' .env | xargs)
     '';
   };
 
