@@ -8,7 +8,7 @@
   fonts.fontconfig.enable = true;
 
   # packages
-  home.packages = with pkgs; [ fastfetch pre-commit tree meslo-lgs-nf ripgrep cmake nodejs rustup xclip lazygit lazydocker tmux gh cue ];
+  home.packages = with pkgs; [ fastfetch pre-commit tree meslo-lgs-nf ripgrep cmake nodejs rustup xclip lazygit cue ];
 
   # autojump
   programs.autojump = {
