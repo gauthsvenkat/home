@@ -8,7 +8,3 @@ repos:
     rev: v1.3.0
     hooks:
     -   id: nixpkgs-fmt
--   repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v0.20.0
-    hooks:
-    -   id: stylua
