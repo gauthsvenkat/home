@@ -70,6 +70,8 @@
       v = "nvim";
       b = "bat";
       t = "tree";
+      ta = "tree -a -L 2";
+      lg = "lazygit";
     };
     initExtra = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
