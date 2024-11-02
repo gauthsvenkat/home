@@ -1,14 +1,22 @@
 { config, pkgs, ... }:
 
+let
+  username = "ando";
+  homeDirectory = "/home/${username}";
+in
 {
   home.stateVersion = "23.05"; # Dont' change this
 
   targets.genericLinux.enable = true;
-  home.username = "ando";
-  home.homeDirectory = "/home/ando";
+  home.username = username;
+  home.homeDirectory = homeDirectory;
 
   programs.home-manager.enable = true;
   fonts.fontconfig.enable = true;
+
+  home.sessionVariables = {
+    "FLAKE" = "${homeDirectory}/.config/home-manager";
+  };
 
   # packages
   home.packages = with pkgs; [
@@ -25,6 +33,7 @@
     lazygit
     cue
     nix-output-monitor
+    nh
   ];
 
   # autojump
