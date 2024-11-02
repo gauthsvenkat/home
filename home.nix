@@ -24,6 +24,7 @@
     xclip
     lazygit
     cue
+    nh
   ];
 
   # autojump
