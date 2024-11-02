@@ -24,7 +24,7 @@
     xclip
     lazygit
     cue
-    nh
+    nix-output-monitor
   ];
 
   # autojump
