@@ -16,6 +16,7 @@ in
 
   home.sessionVariables = {
     "FLAKE" = "${homeDirectory}/.config/home-manager";
+    "EDITOR" = "nvim";
   };
 
   # packages
