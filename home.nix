@@ -1,4 +1,4 @@
-{ pkgs, agenix, ... }:
+{ pkgs, ... }:
 
 let
   username = "ando";
@@ -35,7 +35,6 @@ in
     nix-output-monitor
     nh
     nixfmt-rfc-style
-    agenix.packages.x86_64-linux.default
   ];
 
   # autojump
