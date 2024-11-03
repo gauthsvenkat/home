@@ -34,6 +34,7 @@ in
     cue
     nix-output-monitor
     nh
+    nixfmt-rfc-style
   ];
 
   # autojump
@@ -74,7 +75,13 @@ in
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "docker" "docker-compose" "sudo" "git" "autojump" ];
+      plugins = [
+        "docker"
+        "docker-compose"
+        "sudo"
+        "git"
+        "autojump"
+      ];
     };
     shellAliases = {
       v = "nvim";
