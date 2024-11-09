@@ -21,7 +21,6 @@ in
   # packages
   home.packages = with pkgs; [
     pre-commit
-    tree
     meslo-lgs-nf
     cmake
     nodejs
@@ -58,6 +57,12 @@ in
       enable = true;
       userEmail = "gauthsvenkat@gmail.com";
       userName = "Gautham Venkataraman";
+    };
+
+    eza = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
     fzf = {
@@ -97,8 +102,9 @@ in
         ];
       };
       shellAliases = {
+        l = "${pkgs.eza}/bin/eza -l --icons -a";
+        lt = "${pkgs.eza}/bin/eza --tree --icons --git --level=3";
         v = "${pkgs.neovim}/bin/nvim";
-        t = "${pkgs.tree}/bin/tree";
         b = "${pkgs.bat}/bin/bat";
         y = "${pkgs.yazi}/bin/yazi";
         lg = "${pkgs.lazygit}/bin/lazygit";
