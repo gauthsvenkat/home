@@ -75,6 +75,12 @@ in
       };
     };
 
+    yazi = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+
     zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -91,9 +97,11 @@ in
         ];
       };
       shellAliases = {
-        v = "nvim";
-        t = "tree";
-        b = "bat";
+        v = "${pkgs.neovim}/bin/nvim";
+        t = "${pkgs.tree}/bin/tree";
+        b = "${pkgs.bat}/bin/bat";
+        y = "${pkgs.yazi}/bin/yazi";
+        lg = "${pkgs.lazygit}/bin/lazygit";
       };
       initExtra = ''
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
