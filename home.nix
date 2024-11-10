@@ -84,6 +84,51 @@ in
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
+      plugins =
+        let
+          se = rec {
+            name = "smart-enter";
+            path = "${name}/init.lua";
+            content = ''
+              return {
+                entry = function()
+                  local h = cx.active.current.hovered
+                  ya.manager_emit(h and h.cha.is_dir and "enter" or "open", { hovered = true })
+                end,
+              }
+            '';
+            pkg = "${pkgs.writeTextDir se.path se.content}/${name}";
+          };
+        in
+        {
+          ${se.name} = se.pkg;
+        };
+      keymap = {
+        input.prepend_keymap = [
+          {
+            on = "<Esc>";
+            run = "close";
+            desc = "Cancel input";
+          }
+        ];
+        manager.prepend_keymap = [
+          {
+            on = "o";
+            run = "shell \"$SHELL\" --block --confirm ";
+            desc = "Open shell";
+          }
+          {
+            on = "<Esc>";
+            run = "close";
+            desc = "Close yazi";
+          }
+          {
+            on = "<Enter>";
+            run = "plugin --sync smart-enter";
+            desc = "Enter directory, or open file";
+          }
+        ];
+      };
     };
 
     zsh = {
