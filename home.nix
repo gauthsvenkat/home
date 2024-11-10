@@ -5,39 +5,41 @@ let
   homeDirectory = "/home/${username}";
 in
 {
-  home.stateVersion = "23.05"; # Dont' change this
-
   targets.genericLinux.enable = true;
-  home.username = username;
-  home.homeDirectory = homeDirectory;
 
-  programs.home-manager.enable = true;
   fonts.fontconfig.enable = true;
 
-  home.sessionVariables = {
-    "EDITOR" = "nvim";
+  home = {
+    stateVersion = "23.05"; # Don't change this
+    inherit username;
+    inherit homeDirectory;
+    sessionVariables = {
+      "EDITOR" = "nvim";
+    };
+    packages = with pkgs; [
+      pre-commit
+      meslo-lgs-nf
+      cmake
+      nodejs
+      rustup
+      xclip
+      cue
+      nix-output-monitor
+      nixfmt-rfc-style
+      just
+    ];
   };
 
-  # packages
-  home.packages = with pkgs; [
-    pre-commit
-    meslo-lgs-nf
-    cmake
-    nodejs
-    rustup
-    xclip
-    cue
-    nix-output-monitor
-    nixfmt-rfc-style
-    just
-  ];
-
   programs = {
+    home-manager.enable = true;
     fastfetch.enable = true;
+    eza.enable = true;
+    fzf.enable = true;
     bat.enable = true;
     ripgrep.enable = true;
     lazygit.enable = true;
     direnv.enable = true;
+    yazi.enable = true;
 
     nh = {
       enable = true;
@@ -46,8 +48,6 @@ in
 
     zoxide = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       options = [
         "--cmd j"
       ];
@@ -59,75 +59,12 @@ in
       userName = "Gautham Venkataraman";
     };
 
-    eza = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-
-    fzf = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-
     btop = {
       enable = true;
       settings = {
         color_theme = "gruvbox_dark";
         update_ms = 1000;
         proc_tree = true;
-      };
-    };
-
-    yazi = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      plugins =
-        let
-          se = rec {
-            name = "smart-enter";
-            path = "${name}/init.lua";
-            content = ''
-              return {
-                entry = function()
-                  local h = cx.active.current.hovered
-                  ya.manager_emit(h and h.cha.is_dir and "enter" or "open", { hovered = true })
-                end,
-              }
-            '';
-            pkg = "${pkgs.writeTextDir se.path se.content}/${name}";
-          };
-        in
-        {
-          ${se.name} = se.pkg;
-        };
-      keymap = {
-        input.prepend_keymap = [
-          {
-            on = "<Esc>";
-            run = "close";
-            desc = "Cancel input";
-          }
-        ];
-        manager.prepend_keymap = [
-          {
-            on = "o";
-            run = "shell \"$SHELL\" --block --confirm ";
-            desc = "Open shell";
-          }
-          {
-            on = "<Esc>";
-            run = "close";
-            desc = "Close yazi";
-          }
-          {
-            on = "<Enter>";
-            run = "plugin --sync smart-enter";
-            desc = "Enter directory, or open file";
-          }
-        ];
       };
     };
 
