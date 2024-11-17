@@ -55,6 +55,7 @@ in
 
     git = {
       enable = true;
+      lfs.enable = true;
       userEmail = "gauthsvenkat@gmail.com";
       userName = "Gautham Venkataraman";
     };
