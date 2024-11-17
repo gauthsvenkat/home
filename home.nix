@@ -27,6 +27,7 @@ in
       nix-output-monitor
       nixfmt-rfc-style
       just
+      ttyper
     ];
   };
 
